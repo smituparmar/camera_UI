@@ -36,6 +36,8 @@ class CameraAppState extends State<CameraApp> {
     if (!controller.value.isInitialized) {
       return Container();
     }
+    final size = MediaQuery.of(context).size;
+    final deviceRatio = size.width / size.height;
     return RotationTransition(
       turns: AlwaysStoppedAnimation(0 / 360),
       alignment: Alignment.bottomLeft,
@@ -71,7 +73,14 @@ class CameraAppState extends State<CameraApp> {
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: <Widget>[
-                  CameraPreview(controller),
+                  AspectRatio(
+                    aspectRatio: controller.value.aspectRatio / deviceRatio,
+                    child: Container(
+                      child: CameraPreview(
+                        controller,
+                      ),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

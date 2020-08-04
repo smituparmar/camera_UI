@@ -57,10 +57,50 @@ class BottomNavBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('GALLERY'),
-          Text('PHOTO'),
-          Text('VIDEO'),
+          BottomNavItem(
+            text: 'GALLERY',
+            isActive: false,
+          ),
+          BottomNavItem(
+            text: 'PHOTO',
+            isActive: true,
+          ),
+          BottomNavItem(
+            text: 'VIDEO',
+            isActive: false,
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class BottomNavItem extends StatelessWidget {
+  final String text;
+  final bool isActive;
+  const BottomNavItem({this.text, this.isActive});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        width: MediaQuery.of(context).size.width / 3,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          border: isActive
+              ? Border(
+                  bottom: BorderSide(width: 1),
+                )
+              : null,
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: isActive ? Colors.black : Colors.grey,
+          ),
+        ),
       ),
     );
   }
